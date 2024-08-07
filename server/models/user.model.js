@@ -12,10 +12,6 @@ const userSchema = new Schema(
             lowercase: true,
             index: true
         },
-        name: {
-            type: String,
-            required: true,
-        },
         password: {
             type: String,
             required: [true, 'Password is required']
@@ -44,7 +40,6 @@ userSchema.methods.generateAccessToken = function(){
     return jwt.sign(
         {
             username: this.username,
-            name: this.name
         },
         process.env.ACCESS_TOKEN_SECRET,
         {
@@ -57,7 +52,6 @@ userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {
             username: this.username,
-            name: this.name
         },
         process.env.REFRESH_TOKEN_SECRET,
         {
