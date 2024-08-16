@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:video_call/home_page.dart';
-import 'package:video_call/login_page.dart';
+import 'package:provider/provider.dart';
+import 'package:video_call/providers/user_provider.dart';
+import 'package:video_call/router.dart';
+import 'package:video_call/screens/home_page.dart';
+import 'package:video_call/screens/login_page.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MultiProvider(
+    
+    providers: [ChangeNotifierProvider(create: (context)=>UserProvider())],
+    child: const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -13,7 +19,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      onGenerateRoute: (settings) => generateRoute(settings),
+      home: const HomePage(),
     );
   }
 }

@@ -12,6 +12,7 @@ const generateAccessAndRefreshToken = async (userId) => {
 }
 
 const registerUser = async (req, res) => {
+    console.log("here");
     try {
         const { username, password } = req.body;
 
@@ -37,7 +38,7 @@ const registerUser = async (req, res) => {
 
         }
 
-        return res.status(201).json({ message: "User registered successfully" });
+        return res.status(200).json({ user: createdUser, message: "User registered successfully" });
     } catch (e) {
         return res.status(500).json({ error: e.message });
     }
@@ -51,21 +52,21 @@ const logInUser = async (req, res) => {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        const user = await User.findOne({ username });
+        const userExists = await User.findOne({ username });
 
-        if (!user) {
+        if (!userExists) {
             return res.status(404).json({ error: "User does not exist" });
         }
 
-        const isPasswordValid = await user.isPasswordCorrect(password);
+        const isPasswordValid = await userExists.isPasswordCorrect(password);
 
         if (!isPasswordValid) {
             return res.status(401).json({ error: "Invalid Password" });
         }
 
-        const { accessToken, refreshToken } = await generateAccessAndRefreshToken(user._id);
+        const { accessToken, refreshToken } = await generateAccessAndRefreshToken(userExists._id);
 
-        const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
+        const user = await User.findById(userExists._id).select("-password -refreshToken")
 
         const options = {
             httpOnly: true,
@@ -76,7 +77,7 @@ const logInUser = async (req, res) => {
             .status(200)
             .cookie("accessToken", accessToken, options)
             .cookie("refreshToken", refreshToken, options)
-            .json({ message: "User logged in successfully" });
+            .json({ token: accessToken, ...user._doc, message: "User logged in successfully" });
     } catch (e) {
         return res.status(500).json({ error: e.message });
     }

@@ -55,3 +55,4 @@ README.md
 server/node_modules/
 server/.env
 server/constant.js
+lib/constants.dart

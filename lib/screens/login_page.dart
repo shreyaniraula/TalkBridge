@@ -1,22 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:video_call/services/auth_service.dart';
 import 'package:video_call/widgets/custom_textfield.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final AuthService authService = AuthService();
 
   @override
   void dispose() {
     super.dispose();
-    _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
+  }
+
+  void registerUser() {
+    authService.registerUser(
+      context: context,
+      username: _usernameController.text,
+      password: _passwordController.text,
+    );
+  }
+
+  void loginUser() {
+    authService.logInUser(
+      context: context,
+      username: _usernameController.text,
+      password: _passwordController.text,
+    );
   }
 
   @override
@@ -31,34 +50,16 @@ class _HomePageState extends State<LoginPage> {
                 padding: const EdgeInsets.all(15.0),
                 width: double.infinity,
                 color: Colors.black87,
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Login to your account',
+                    Text(
+                      'TalkBridge',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 30,
                         fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.white),
-                          borderRadius: BorderRadius.circular(30.0)),
-                      child: const TextButton(
-                        onPressed: null,
-                        child: Text(
-                          'Create new account',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
                       ),
                     ),
                   ],
@@ -70,11 +71,11 @@ class _HomePageState extends State<LoginPage> {
               child: Column(
                 children: [
                   CustomTextfield(
-                      textField: 'Email Address', controller: _emailController),
+                      textField: 'Username', controller: _usernameController),
                   CustomTextfield(
                       textField: 'Password', controller: _passwordController),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: loginUser,
                     style:
                         TextButton.styleFrom(backgroundColor: Colors.black87),
                     child: const Text(
@@ -82,6 +83,20 @@ class _HomePageState extends State<LoginPage> {
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  ElevatedButton(
+                    onPressed: registerUser,
+                    style:
+                        TextButton.styleFrom(backgroundColor: Colors.black87),
+                    child: const Text(
+                      'Create new account!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
