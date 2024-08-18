@@ -14,7 +14,13 @@ class CustomTextfield extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(textField, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),),
+          Text(
+            textField,
+            style: const TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           TextField(
             controller: controller,
             decoration: const InputDecoration(

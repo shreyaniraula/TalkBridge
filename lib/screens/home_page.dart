@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video_call/screens/video_call_page.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = '/home';
@@ -6,6 +7,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _usernameController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -42,8 +44,23 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+            SizedBox(
+              width: 200.0,
+              child: TextField(
+                controller: _usernameController,
+                decoration: const InputDecoration(
+                  hintText: 'Enter username.',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0x00E5E4E2)),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(context, VideoCallPage.routeName, (route)=>false);
+              },
               style: TextButton.styleFrom(
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5))),
@@ -58,8 +75,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
-            TextButton(
+            /*TextButton(
               onPressed: () {},
               style: TextButton.styleFrom(
                   shape: const RoundedRectangleBorder(
@@ -74,7 +90,7 @@ class HomePage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
+            ),*/
             const SizedBox(height: 30),
             Container(
               decoration:
