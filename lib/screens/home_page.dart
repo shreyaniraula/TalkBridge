@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:video_call/screens/video_call_page.dart';
+import 'package:video_call/screens/video_call_screen.dart';
 
 class HomePage extends StatelessWidget {
   static const String routeName = '/home';
@@ -59,7 +59,8 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 10),
             TextButton(
               onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(context, VideoCallPage.routeName, (route)=>false);
+                Navigator.pushNamedAndRemoveUntil(
+                    context, VideoCallScreen.routeName, (route) => false);
               },
               style: TextButton.styleFrom(
                   shape: const RoundedRectangleBorder(
@@ -75,22 +76,6 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-            /*TextButton(
-              onPressed: () {},
-              style: TextButton.styleFrom(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  side: const BorderSide(color: Colors.black87),
-                  foregroundColor: Colors.black),
-              child: const Text(
-                'Enter link to a call',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),*/
             const SizedBox(height: 30),
             Container(
               decoration:

@@ -9,7 +9,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const HomePage(),
       );
 
-     default:
+    default:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const Scaffold(
