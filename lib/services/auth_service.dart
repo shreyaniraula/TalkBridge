@@ -17,7 +17,7 @@ class AuthService {
       required String username,
       required String password}) async {
     try {
-      User user = User(username: username, password: password);
+      User user = User(id: '', username: username, password: password);
 
       http.Response res = await http.post(
         Uri.parse('$uri/api/users/register'),

@@ -6,16 +6,17 @@ import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 class VideoCallScreen extends StatelessWidget {
   static const String routeName = '/call-screen';
-  const VideoCallScreen({super.key});
+  final String callId;
+  const VideoCallScreen({super.key, required this.callId});
 
   @override
   Widget build(BuildContext context) {
     return ZegoUIKitPrebuiltCall(
-      appID: -1, // your AppID,
+      appID: myAppId,
       appSign: myAppSign,
-      userID: '',
-      userName: '',
-      callID: '',
+      userID: Provider.of<UserProvider>(context).user.id.toString(),
+      userName: Provider.of<UserProvider>(context).user.username.toString(),
+      callID: callId,
       config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall(),
     );
   }

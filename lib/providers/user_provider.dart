@@ -3,6 +3,7 @@ import 'package:video_call/models/user_model.dart';
 
 class UserProvider extends ChangeNotifier {
   User _user = User(
+    id: '',
     username: '',
     password: '',
   );

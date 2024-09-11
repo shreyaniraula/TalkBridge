@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:video_call/screens/video_call_screen.dart';
 
@@ -7,7 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _usernameController = TextEditingController();
+    final TextEditingController codeController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -44,23 +46,16 @@ class HomePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            SizedBox(
-              width: 200.0,
-              child: TextField(
-                controller: _usernameController,
-                decoration: const InputDecoration(
-                  hintText: 'Enter username.',
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0x00E5E4E2)),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
+            //Create a New Call
             TextButton(
               onPressed: () {
+                Random random = Random();
+                int callId = random.nextInt(10000);
                 Navigator.pushNamedAndRemoveUntil(
-                    context, VideoCallScreen.routeName, (route) => false);
+                    context,
+                    VideoCallScreen.routeName,
+                    arguments: callId.toString(),
+                    (route) => false);
               },
               style: TextButton.styleFrom(
                   shape: const RoundedRectangleBorder(
@@ -76,6 +71,48 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                //Join an existing call
+                SizedBox(
+                  width: 200.0,
+                  child: TextField(
+                    controller: codeController,
+                    decoration: const InputDecoration(
+                      hintText: 'Enter meeting code.',
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0x00E5E4E2)),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 5),
+                TextButton(
+                  onPressed: () {
+                    String callId = codeController.text;
+                    Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        VideoCallScreen.routeName,
+                        arguments: callId,
+                        (route) => false);
+                  },
+                  style: TextButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    foregroundColor: Colors.grey,
+                  ),
+                  child: const Text(
+                    'Join',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
             const SizedBox(height: 30),
             Container(
               decoration:
@@ -85,7 +122,7 @@ class HomePage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30.0),
                 child: Image.asset('assets/images/call_animation.jpg'),
               ),
-            )
+            ),
           ],
         ),
       ),
