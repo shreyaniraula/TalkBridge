@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:video_call/screens/video_call_screen.dart';
 
@@ -92,10 +91,11 @@ class HomePage extends StatelessWidget {
                   onPressed: () {
                     String callId = codeController.text;
                     Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        VideoCallScreen.routeName,
-                        arguments: callId,
-                        (route) => false);
+                      context,
+                      VideoCallScreen.routeName,
+                      arguments: callId,
+                      (route) => false,
+                    );
                   },
                   style: TextButton.styleFrom(
                     shape: const RoundedRectangleBorder(

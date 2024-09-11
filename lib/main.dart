@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video_call/providers/user_provider.dart';
 import 'package:video_call/router.dart';
-import 'package:video_call/screens/home_page.dart';
 import 'package:video_call/screens/login_page.dart';
 
 void main() {
@@ -20,7 +19,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const HomePage(),
+      home: const LoginPage(),
     );
   }
 }
